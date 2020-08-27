@@ -47,7 +47,7 @@ func InsertPhoto(photo models.Photo) int64 {
 		log.Fatalf("Unable to execute the query. %v", err)
 	}
 
-	fmt.Printf("Inserted a single record %v", id)
+	fmt.Println("Inserted a single record %v", id)
 	return id
 }
 

@@ -34,7 +34,16 @@ class SubmitForm extends React.Component {
   };
 
   onSubmit = (e) => {
-    console.log(this.state);
+    let payload = {
+      CollageID: this.state.collageID,
+      Name: this.state.imageName,
+      Link: this.state.imageURL,
+      Description: this.state.imageDescription
+    }
+    fetch('http://localhost:8080/apiv2/newphoto', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
     return false
   }
   render() {
