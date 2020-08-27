@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Gallery from "react-photo-gallery";
 import { photos } from "../../Home/photos";
 import Carousel, { Modal, ModalGateway } from "react-images";
+import Button from '@material-ui/core/Button';
 
 class SubmitForm extends React.Component {
 
@@ -13,6 +14,7 @@ class SubmitForm extends React.Component {
       imageURL: '',
       imageName: '',
       imageDescription: '',
+      collageSearchID: ''
     }
 
   }
@@ -31,6 +33,10 @@ class SubmitForm extends React.Component {
 
   handleImageDescriptionChange = (e) => {
     this.setState({ imageDescription: e.target.value });
+  };
+
+  handleCollageSearchChange = (e) => {
+    this.setState({ collageSearchID: e.target.value });
   };
 
   onSubmit = (e) => {
@@ -52,6 +58,7 @@ class SubmitForm extends React.Component {
       <div className="card bg-light">
         <article className="card-body mx-auto" style={{ width: "500px" }}>
           <form>
+          <h1 class="display-5">Add Photo To Collage</h1>
             <div className="form-group">
               <label for="collageID">Collage ID</label>
               <input type="text" className="form-control" id="collageID" placeholder="Enter an ID" value={this.state.collageID} onChange={this.handleCollageIDChange}></input>
@@ -71,6 +78,19 @@ class SubmitForm extends React.Component {
             <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
           </form>
         </article>
+
+        <div className="card bg-light">
+        <article className="card-body mx-auto" style={{ width: "500px" }}>
+          <form>
+            <h1 class="display-5">View Collage</h1>
+            <div className="form-group">
+              <label for="collageID">Enter the Collage ID</label>
+              <input type="text" className="form-control" id="collageID" placeholder="Enter an ID" value={this.state.collageSearchID} onChange={this.handleCollageSearchChange}></input>
+            </div>
+            <Button variant="contained" color="secondary" href={"./display?id=" + this.state.collageSearchID}>View Collage </Button>
+          </form>
+        </article>
+        </div>
         <Gallery photos={photos} margin={2} targetRowHeight={500} />
 
       </div>

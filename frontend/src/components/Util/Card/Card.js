@@ -38,7 +38,7 @@ export default function SimpleCard() {
         <Button variant="contained" color="primary" href="./create">Collagify</Button>
         </CardActions>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          View previously create collage.
+          View previously created collage.
         </Typography>
         <CardActions>
         <Button variant="contained" color="secondary" href="./display">View Previous</Button>

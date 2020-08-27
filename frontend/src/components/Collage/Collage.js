@@ -7,51 +7,59 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import tileData from './DemoData';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    width: 1000,
-    height: 1000,
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
-}));
+class CollageGrid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    }
 
-export default function CollageGrid() {
-  const classes = useStyles();
+  }
 
-  return (
-    <div className={classes.root}>
-      <GridList cellHeight={300}  spacing={30} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-          <ListSubheader component="div"></ListSubheader>
-        </GridListTile>
-        {tileData.map((tile) => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
+  componentDidMount() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const collageID = urlParams.get('id');
+    fetch(`http://localhost:8080/apiv2/collage/${collageID}`)
+        .then(res => res.json())
+        .then(result => {
+          this.setState({ data: result })
+          console.log(this.state.data);
+        })
+  }
+
+  render() {
+    return (
+      <div style={{
+
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: "theme.palette.background.paper",
+
+      }}>
+        <GridList cellHeight={300} spacing={10} style={{
+              width: 1000,
+              height: 1000,
+        }}>
+          <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
+            <ListSubheader component="div"></ListSubheader>
           </GridListTile>
-        ))}
-      </GridList>
-    </div>
-  );
+          {this.state.data.map((tile) => (
+            <GridListTile key={tile.img}>
+              <img src={tile.link} alt={tile.name} />
+              <GridListTileBar
+                title={tile.name}
+                subtitle={tile.description}
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+    );
+  }
 }
+
+export default CollageGrid;

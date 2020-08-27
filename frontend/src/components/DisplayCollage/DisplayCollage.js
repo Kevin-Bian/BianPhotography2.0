@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CollageGrid from '../Collage/Collage'
 
-class CreateCollage extends React.Component {
+class DisplayCollage extends React.Component {
+
+
+
   render() {
-    return <h2>Display!</h2>;
+
+    
+    return <CollageGrid />;
   }
 }
 
-export default CreateCollage
+export default DisplayCollage
 
-ReactDOM.render(<CreateCollage />, document.getElementById('root'));

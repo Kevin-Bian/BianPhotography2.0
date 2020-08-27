@@ -7,6 +7,7 @@ import { Route, IndexRoute } from 'react-router';
 // import App from '../components/App/App';
 import Home from '../components/Home/Home';
 import CreateCollage from '../components/CreateCollage/CreateCollage';
+import DisplayCollage from '../components/DisplayCollage/DisplayCollage'
 
 /**
  * All routes go here.
@@ -17,5 +18,6 @@ export default (
         <Route path="/" component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/create" component={CreateCollage} />
+        <Route path="/display" component={DisplayCollage} />
     </div>
 );

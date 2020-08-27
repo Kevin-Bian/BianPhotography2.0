@@ -15,4 +15,4 @@ class CreateCollage extends React.Component {
 
 export default CreateCollage
 
-ReactDOM.render(<CreateCollage />, document.getElementById('root'));
+
