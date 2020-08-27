@@ -1,4 +1,4 @@
-# BianPhotography2.0
+# Collageify
 2.0 my friends
 
 ## Postgres (Currently Running on AWS)
