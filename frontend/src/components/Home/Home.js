@@ -5,6 +5,7 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { photos } from "./photos";
 import SimpleCard from "../Util/Card/Card"
+import Typography from '@material-ui/core/Typography';
 function Home() {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -44,6 +45,18 @@ function Home() {
           </Modal>
         ) : null}
       </ModalGateway>
+      <div class="footer"
+        style={{
+          position: "fixed",
+          left: "0",
+          bottom: "0",
+          width: "100%",
+          backgroundColor: "#9932CD",
+          color: "white",
+          textAlign: "center",
+       }}>
+         <Typography color="white" gutterBottom>Made with ☕️ by Kevin Bian</Typography>
+      </div>
     </div>
   );
 }
