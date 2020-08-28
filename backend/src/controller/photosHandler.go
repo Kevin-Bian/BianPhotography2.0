@@ -54,7 +54,6 @@ func CreatePhoto(w http.ResponseWriter, r *http.Request) {
 
 	var photo models.Photo
 	err := json.NewDecoder(r.Body).Decode(&photo)
-	fmt.Print(photo)
 	if err != nil {
 		log.Fatalf("Unable to decode the request body.  %v", err)
 	}
