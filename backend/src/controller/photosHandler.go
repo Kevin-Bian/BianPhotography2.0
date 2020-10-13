@@ -109,3 +109,21 @@ func GetAllPhoto(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(photos)
 }
+
+func DeletePhoto(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	params := mux.Vars(r)
+
+	id, err := strconv.Atoi(params["id"])
+	if err != nil {
+		log.Fatalf("Unable to convert the string into int.  %v", err)
+	}
+
+	user, err := helpers.DeletePhoto(int64(id))
+	if err != nil {
+		log.Fatalf("Unable to get user. %v", err)
+	}
+
+	json.NewEncoder(w).Encode(user)
+}

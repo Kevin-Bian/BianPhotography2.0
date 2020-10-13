@@ -41,13 +41,13 @@ export default function SimpleCard() {
           View previously created collage.
         </Typography>
         <CardActions>
-        <Button variant="contained" color="secondary" href="./display">View Previous</Button>
+        <Button variant="contained" color="secondary" href="./previous">View Previous</Button>
         </CardActions>
 
 
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small" href="https://github.com/Kevin-Bian/Collageify">Learn More</Button>
       </CardActions>
     </Card>
   );

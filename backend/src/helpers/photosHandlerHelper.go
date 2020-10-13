@@ -127,3 +127,26 @@ func GetCollage(collageid string) ([]models.Photo, error) {
 	}
 	return photos, err
 }
+
+func DeletePhoto(id int64) (models.Photo, error) {
+	db := createConnection()
+	defer db.Close()
+
+	var photo models.Photo
+	sqlStatement := `DELETE FROM photos WHERE photoid=$1`
+
+	row := db.QueryRow(sqlStatement, id)
+	err := row.Scan(&photo.ID, &photo.CollageID, &photo.Name, &photo.Link, &photo.Description)
+
+	switch err {
+	case sql.ErrNoRows:
+		fmt.Println("No rows were returned!")
+		return photo, nil
+	case nil:
+		return photo, nil
+	default:
+		log.Fatalf("Unable to scan the row. %v", err)
+	}
+
+	return photo, err
+}

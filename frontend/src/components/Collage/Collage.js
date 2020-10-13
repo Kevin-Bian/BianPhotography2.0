@@ -25,11 +25,13 @@ class CollageGrid extends React.Component {
         .then(res => res.json())
         .then(result => {
           this.setState({ data: result })
-          console.log(this.state.data);
         })
   }
 
   render() {
+    if (!this.state.data) {
+      return <h1>No collage found :(</h1>
+    }
     return (
       <div style={{
 

@@ -55,7 +55,7 @@ function Home() {
           color: "white",
           textAlign: "center",
        }}>
-         <Typography color="white" gutterBottom>Made with ☕️ by Kevin Bian</Typography>
+         <Typography color="white" gutterBottom>Made by Kevin Bian with ☕️ </Typography>
       </div>
     </div>
   );
