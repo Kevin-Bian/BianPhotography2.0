@@ -22,13 +22,15 @@ type response struct {
 	Message string `json:"message,omitempty"`
 }
 
+// Greet Default greet message
 func Greet(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	res := "Hello There! Welcome to Bian Photography API V2."
 	json.NewEncoder(w).Encode(res)
 }
 
+// createConnection Connects to our PSQL DB
 func createConnection() *sql.DB {
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -46,8 +48,9 @@ func createConnection() *sql.DB {
 	return db
 }
 
+// CreatePhoto Uploads a photo to collage
 func CreatePhoto(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -67,8 +70,9 @@ func CreatePhoto(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res)
 }
 
+// GetPhoto Gets a photo given id
 func GetPhoto(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	params := mux.Vars(r)
 
@@ -85,8 +89,9 @@ func GetPhoto(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 }
 
+// GetCollage Gets a collage given id
 func GetCollage(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	params := mux.Vars(r)
 
@@ -98,8 +103,9 @@ func GetCollage(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(photos)
 }
 
+// GetAllPhoto Gets all photos uploaded
 func GetAllPhoto(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	photos, err := helpers.GetAllPhotos()
@@ -110,8 +116,9 @@ func GetAllPhoto(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(photos)
 }
 
+// DeletePhoto Deletes a photo by id
 func DeletePhoto(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	params := mux.Vars(r)
 
@@ -120,10 +127,14 @@ func DeletePhoto(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Unable to convert the string into int.  %v", err)
 	}
 
-	user, err := helpers.DeletePhoto(int64(id))
+	status, err := helpers.DeletePhoto(int64(id))
 	if err != nil {
 		log.Fatalf("Unable to get user. %v", err)
 	}
 
-	json.NewEncoder(w).Encode(user)
+	res := response{
+		Message: status,
+	}
+
+	json.NewEncoder(w).Encode(res)
 }

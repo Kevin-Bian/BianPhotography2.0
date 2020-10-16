@@ -7,6 +7,7 @@ import (
 
 func Router() *mux.Router {
 
+	// Routes
 	router := mux.NewRouter()
 	router.HandleFunc("/apiv2", controller.Greet).Methods("GET", "OPTIONS")
 	router.HandleFunc("/apiv2/newphoto", controller.CreatePhoto).Methods("POST", "OPTIONS")

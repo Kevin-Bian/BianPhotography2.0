@@ -17,6 +17,7 @@ type response struct {
 	Message string `json:"message,omitempty"`
 }
 
+// createConnection Connects to our PSQL DB
 func createConnection() *sql.DB {
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -34,6 +35,7 @@ func createConnection() *sql.DB {
 	return db
 }
 
+// InsertPhoto Uploads a photo to collage
 func InsertPhoto(photo models.Photo) int64 {
 
 	db := createConnection()
@@ -51,6 +53,7 @@ func InsertPhoto(photo models.Photo) int64 {
 	return id
 }
 
+// GetPhoto Gets a photo given id
 func GetPhoto(id int64) (models.Photo, error) {
 	db := createConnection()
 	defer db.Close()
@@ -74,6 +77,7 @@ func GetPhoto(id int64) (models.Photo, error) {
 	return photo, err
 }
 
+// GetAllPhotos Gets all photos uploaded
 func GetAllPhotos() ([]models.Photo, error) {
 	db := createConnection()
 	defer db.Close()
@@ -101,6 +105,7 @@ func GetAllPhotos() ([]models.Photo, error) {
 	return photos, err
 }
 
+// GetCollage Gets a collage given id
 func GetCollage(collageid string) ([]models.Photo, error) {
 	db := createConnection()
 	defer db.Close()
@@ -128,7 +133,8 @@ func GetCollage(collageid string) ([]models.Photo, error) {
 	return photos, err
 }
 
-func DeletePhoto(id int64) (models.Photo, error) {
+// DeletePhoto Deletes a photo by id
+func DeletePhoto(id int64) (string, error) {
 	db := createConnection()
 	defer db.Close()
 
@@ -141,12 +147,12 @@ func DeletePhoto(id int64) (models.Photo, error) {
 	switch err {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
-		return photo, nil
+		return "Success", nil
 	case nil:
-		return photo, nil
+		return "Success", nil
 	default:
 		log.Fatalf("Unable to scan the row. %v", err)
 	}
 
-	return photo, err
+	return "Failiure", err
 }
